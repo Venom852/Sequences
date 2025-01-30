@@ -120,16 +120,16 @@ object ChatService {
     ): List<Message> {
         if (sideOfTheList === 1) {
             markMessageAsRead(
-                *messages.asSequence().filter { interlocutorId === it.recipientId }.take(quantityMessages).toMutableList()
+                *messages.filter { interlocutorId === it.recipientId }.take(quantityMessages).toMutableList()
                     .map { it.id }.toIntArray()
             )
-            return messages.asSequence().filter { interlocutorId === it.recipientId }.take(quantityMessages).toList()
+            return messages.filter { interlocutorId === it.recipientId }.take(quantityMessages).toList()
         } else {
             markMessageAsRead(
-                *messages.asSequence().filter { interlocutorId === it.recipientId }.toMutableList().takeLast(quantityMessages)
+                *messages.filter { interlocutorId === it.recipientId }.toMutableList().takeLast(quantityMessages)
                     .map { it.id }.toIntArray()
             )
-            return messages.asSequence().filter { interlocutorId === it.recipientId }.toList().takeLast(quantityMessages)
+            return messages.filter { interlocutorId === it.recipientId }.toList().takeLast(quantityMessages)
         }
     }
 }
